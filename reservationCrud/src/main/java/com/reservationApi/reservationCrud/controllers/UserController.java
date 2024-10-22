@@ -73,6 +73,26 @@ public class UserController {
         return createUserResponseEntity(userOptional);
     }
 
+    @PutMapping(path = "/update/{id}")
+    public ResponseEntity<?> updateUserById(@RequestBody UserDTO request, @PathVariable("id") Long id){
+        Optional<UserModel> userOptional = userService.getUserById(id);
+        if(userOptional.isPresent()){
+            UserModel userToUpdate = userOptional.get();
+            userService.saveUser(setUserUpdateValues(request, userToUpdate));
+            return ResponseEntity.ok("Usuario con id " + id + " actualizado exitosamente.");
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping(path="/delete/{id}")
+    public ResponseEntity<?> deleteUserById(@PathVariable("id") Long id){
+        if(id != null){
+            userService.deleteUserById(id);
+            return ResponseEntity.ok("Usuario con id " + id + " eliminado existosamente.");
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     public ResponseEntity<?> createUserResponseEntity(Optional<UserModel> userOptional){
         if(userOptional.isPresent()){
             UserModel user = userOptional.get();
@@ -103,18 +123,6 @@ public class UserController {
                 .build();
     }
 
-
-    @PutMapping(path = "/update/{id}")
-    public ResponseEntity<?> updateUserById(@RequestBody UserDTO request, @PathVariable("id") Long id){
-        Optional<UserModel> userOptional = userService.getUserById(id);
-        if(userOptional.isPresent()){
-            UserModel userToUpdate = userOptional.get();
-            userService.saveUser(setUserUpdateValues(request, userToUpdate));
-            return ResponseEntity.ok("Usuario con id " + id + " actualizado exitosamente.");
-        }
-        return ResponseEntity.notFound().build();
-    }
-
     public UserModel setUserUpdateValues(UserDTO userDTO, UserModel userToUpdate){
         userToUpdate.setName(userDTO.getName());
         userToUpdate.setCellphone(userDTO.getCellphone());
@@ -122,14 +130,5 @@ public class UserController {
         userToUpdate.setPassword(userDTO.getPassword());
         userToUpdate.setRole(userDTO.getRole());
         return userToUpdate;
-    }
-
-    @DeleteMapping(path="/delete/{id}")
-    public ResponseEntity<?> deleteUserById(@PathVariable("id") Long id){
-        if(id != null){
-            userService.deleteUserById(id);
-            return ResponseEntity.ok("Usuario con id " + id + " eliminado existosamente.");
-        }
-        return ResponseEntity.notFound().build();
     }
 }

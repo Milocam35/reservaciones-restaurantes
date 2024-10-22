@@ -3,16 +3,19 @@ package com.reservationApi.reservationCrud.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 
 @Table(name="Reservation")
 public class ReservationModel {
@@ -23,7 +26,7 @@ public class ReservationModel {
     private Long reservationId;
 
     @Column(name = "reservationDate")
-    private Date reservationDate;
+    private LocalDate reservationDate;
 
     @Column(name = "reservationHour")
     private LocalTime reservationHour;

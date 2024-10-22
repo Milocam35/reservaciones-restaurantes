@@ -1,4 +1,4 @@
-package com.reservationApi.reservationCrud.models;
+ package com.reservationApi.reservationCrud.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
