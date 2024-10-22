@@ -5,7 +5,6 @@ import com.reservationApi.reservationCrud.persistence.IUserDAO;
 import com.reservationApi.reservationCrud.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,12 +24,10 @@ public class UserServiceImpl implements IUserService {
  */
 
     private final IUserDAO userDAO;
-    private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public UserServiceImpl(IUserDAO userDAO, JdbcTemplate jdbcTemplate) {
+    public UserServiceImpl(IUserDAO userDAO) {
         this.userDAO = userDAO;
-        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
