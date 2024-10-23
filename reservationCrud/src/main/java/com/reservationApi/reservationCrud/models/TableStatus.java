@@ -1,4 +1,6 @@
 package com.reservationApi.reservationCrud.models;
 
-public class RestaurantModel {
+public enum TableStatus {
+    free,
+    reserved
 }
