@@ -39,4 +39,9 @@ public class ReservationModel {
     @JoinColumn(name = "userId", nullable = false)
     @JsonIgnore
     private UserModel user;
+
+    @ManyToOne
+    @JoinColumn(name = "tableId", nullable = false)
+    @JsonIgnore
+    private UserModel table;
 }
