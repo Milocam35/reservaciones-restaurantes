@@ -49,11 +49,11 @@ public class UserController {
 
     @PostMapping(path="save")
     public ResponseEntity<?> saveUser(@RequestBody UserDTO userDTO) throws URISyntaxException {
-        if(userDTO.getName().isBlank()){
+        if(userDTO.getName.isBlank()){
             return ResponseEntity.badRequest().build();
         }
         userService.saveUser(buildUser(userDTO));
-        return ResponseEntity.created(new URI("api/user")).build();
+        return ResponseEntity.created(new URI("api/user/save")).build();
     }
 
     /**

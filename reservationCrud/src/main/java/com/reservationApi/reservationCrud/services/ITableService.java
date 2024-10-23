@@ -1,11 +1,11 @@
-package com.reservationApi.reservationCrud.persistence;
+package com.reservationApi.reservationCrud.services;
 
 import com.reservationApi.reservationCrud.models.TableModel;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface ITableDAO {
+public interface ITableService {
     List<TableModel> getTables();
 
     Optional<TableModel> getTableById(Long id);
