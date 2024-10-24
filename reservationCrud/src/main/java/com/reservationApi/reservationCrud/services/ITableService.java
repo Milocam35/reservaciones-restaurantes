@@ -12,6 +12,8 @@ public interface ITableService {
 
     Optional<TableModel> getTableByReservation(Long id);
 
+    List<TableModel> getRestaurantTables(Long id);
+
     void saveTable(TableModel table);
 
     void deleteTableById(Long id);

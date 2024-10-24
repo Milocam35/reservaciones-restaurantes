@@ -1,6 +1,7 @@
 package com.reservationApi.reservationCrud.controllers.dto;
 
 import com.reservationApi.reservationCrud.models.ReservationModel;
+import com.reservationApi.reservationCrud.models.RestaurantModel;
 import com.reservationApi.reservationCrud.models.TableStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +26,10 @@ public class TableDTO {
 
     private TableStatus status;
 
+    private RestaurantModel restaurant;
+
     private List<ReservationModel> reservationList = new ArrayList<>();
+
+
 
 }

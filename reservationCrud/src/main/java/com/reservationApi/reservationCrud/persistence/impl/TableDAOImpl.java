@@ -1,5 +1,6 @@
 package com.reservationApi.reservationCrud.persistence.impl;
 
+import com.reservationApi.reservationCrud.models.ReservationModel;
 import com.reservationApi.reservationCrud.models.TableModel;
 import com.reservationApi.reservationCrud.persistence.ITableDAO;
 import com.reservationApi.reservationCrud.repositories.ITableRepository;
@@ -32,6 +33,12 @@ public class TableDAOImpl implements ITableDAO {
     public Optional<TableModel> getTableByReservation(Long id) {
         return tableRepository.findTableByReservation_ReservationId(id);
     }
+
+    @Override
+    public List<TableModel> getRestaurantTables(Long id) {
+        return tableRepository.findByRestaurant_RestaurantId(id);
+    }
+
 
     @Override
     public void saveTable(TableModel table) {

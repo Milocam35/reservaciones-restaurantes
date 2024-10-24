@@ -33,7 +33,11 @@ public class TableModel {
     @Enumerated(EnumType.STRING)
     private TableStatus status;
 
-    //Lista de reservas del cliente, ya que un cliente puedo tener muchas reservas
+    @ManyToOne
+    @JoinColumn(name = "restaurantId", nullable = false)
+    @JsonIgnore
+    private RestaurantModel restaurant;
+
     @OneToMany(mappedBy = "table", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnore
     private List<ReservationModel> reservationList = new ArrayList<>();

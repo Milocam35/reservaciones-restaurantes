@@ -39,7 +39,6 @@ public class ReservationController {
         return createReservationResponseEntity(reservationOptional);
     }
 
-
     @GetMapping("/user/{id}")
     public ResponseEntity<?> getUserReservations(@PathVariable Long id){
         List<ReservationDTO> reservationDTOList = reservationService.getUserReservations(id)
