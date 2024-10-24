@@ -43,5 +43,10 @@ public class ReservationModel {
     @ManyToOne
     @JoinColumn(name = "tableId", nullable = false)
     @JsonIgnore
-    private UserModel table;
+    private TableModel table;
+
+    @ManyToOne
+    @JoinColumn(name = "restaurantId", nullable = false)
+    @JsonIgnore
+    private RestaurantModel restaurant;
 }

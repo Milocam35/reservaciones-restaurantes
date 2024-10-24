@@ -1,13 +1,16 @@
 package com.reservationApi.reservationCrud.services.impl;
 
+import com.reservationApi.reservationCrud.models.ReservationModel;
 import com.reservationApi.reservationCrud.models.TableModel;
 import com.reservationApi.reservationCrud.persistence.ITableDAO;
-import com.reservationApi.reservationCrud.repositories.ITableRepository;
 import com.reservationApi.reservationCrud.services.ITableService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+@Service
 
 public class TableServiceImpl implements ITableService {
     private final ITableDAO tableDAO;
@@ -29,6 +32,12 @@ public class TableServiceImpl implements ITableService {
     public Optional<TableModel> getTableByReservation(Long id) {
         return tableDAO.getTableByReservation(id);
     }
+
+    @Override
+    public List<TableModel> getRestaurantTables(Long id) {
+        return tableDAO.getRestaurantTables(id);
+    }
+
 
     @Override
     public void saveTable(TableModel table) {

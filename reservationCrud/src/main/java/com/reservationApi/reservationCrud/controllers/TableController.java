@@ -45,9 +45,18 @@ public class TableController {
         return createTableResponseEntity(tableOptional);
     }
 
+    @GetMapping("/restaurant/{id}")
+    public ResponseEntity<?> getRestaurantTables(@PathVariable Long id){
+        List<TableDTO> tableDTOList = tableService.getRestaurantTables(id)
+                .stream()
+                .map(this::buildTableDTO)
+                .toList();
+        return ResponseEntity.ok(tableDTOList);
+    }
+
     @PostMapping(path="/save")
     public ResponseEntity<?> saveTable(@RequestBody TableDTO tableDTO) throws URISyntaxException {
-        if(tableDTO.getUser() == null){
+        if(tableDTO.getRestaurant() == null){
             return ResponseEntity.badRequest().build();
         }
         tableService.saveTable(buildTable(tableDTO));
@@ -69,6 +78,16 @@ public class TableController {
             return ResponseEntity.ok(buildTableDTO(table));
         }
         return ResponseEntity.notFound().build();
+    }
+
+    public TableModel buildTable(TableDTO tableDTO){
+        return TableModel.builder()
+                .tableId(tableDTO.getTableId())
+                .tableNumber(tableDTO.getTableNumber())
+                .capacity(tableDTO.getCapacity())
+                .status(tableDTO.getStatus())
+                .reservationList(tableDTO.getReservationList())
+                .build();
     }
 
     public TableDTO buildTableDTO(TableModel table){
