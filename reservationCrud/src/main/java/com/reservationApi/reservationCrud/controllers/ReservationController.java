@@ -4,6 +4,7 @@ import com.reservationApi.reservationCrud.controllers.dto.ReservationDTO;
 import com.reservationApi.reservationCrud.controllers.dto.UserDTO;
 import com.reservationApi.reservationCrud.models.ReservationModel;
 import com.reservationApi.reservationCrud.models.UserModel;
+import com.reservationApi.reservationCrud.repositories.IReservationRepository;
 import com.reservationApi.reservationCrud.services.IReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +19,12 @@ import java.util.Optional;
 @RequestMapping("api/reservation")
 public class ReservationController {
     private final IReservationService reservationService;
+    private final IReservationRepository reservationRepository;
 
     @Autowired
-    public ReservationController(IReservationService reservationService){
+    public ReservationController(IReservationService reservationService, IReservationRepository reservationRepository){
         this.reservationService = reservationService;
+        this.reservationRepository = reservationRepository;
     }
 
     @GetMapping
@@ -82,6 +85,8 @@ public class ReservationController {
         reservationToUpdate.setReservationHour(reservationDTO.getReservationHour());
         reservationToUpdate.setStatus(reservationDTO.getStatus());
         reservationToUpdate.setUser(reservationDTO.getUser());
+        reservationToUpdate.setTable(reservationDTO.getTable());
+        reservationToUpdate.setRestaurant(reservationDTO.getRestaurant());
         return reservationToUpdate;
     }
 
@@ -100,6 +105,8 @@ public class ReservationController {
                 .reservationHour(reservationDTO.getReservationHour())
                 .status(reservationDTO.getStatus())
                 .user(reservationDTO.getUser())
+                .table(reservationDTO.getTable())
+                .restaurant(reservationDTO.getRestaurant())
                 .build();
     }
 
@@ -110,6 +117,8 @@ public class ReservationController {
                 .reservationHour(reservation.getReservationHour())
                 .status(reservation.getStatus())
                 .user(reservation.getUser())
+                .table(reservation.getTable())
+                .restaurant(reservation.getRestaurant())
                 .build();
     }
 

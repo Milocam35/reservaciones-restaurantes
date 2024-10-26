@@ -1,11 +1,8 @@
 package com.reservationApi.reservationCrud.controllers;
 
-import com.reservationApi.reservationCrud.controllers.dto.ReservationDTO;
 import com.reservationApi.reservationCrud.controllers.dto.TableDTO;
-import com.reservationApi.reservationCrud.models.ReservationModel;
 import com.reservationApi.reservationCrud.models.TableModel;
 import com.reservationApi.reservationCrud.services.ITableService;
-import com.reservationApi.reservationCrud.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +37,7 @@ public class TableController {
     }
 
     @GetMapping("/reservation/{id}")
-    public ResponseEntity<?> getTableBYReservationId(Long id){
+    public ResponseEntity<?> getTableByReservationId(Long id){
         Optional<TableModel> tableOptional = tableService.getTableByReservation(id);
         return createTableResponseEntity(tableOptional);
     }
@@ -61,6 +58,17 @@ public class TableController {
         }
         tableService.saveTable(buildTable(tableDTO));
         return ResponseEntity.created(new URI("api/table/save")).build();
+    }
+
+    @PutMapping(path = "/update/{id}")
+    public ResponseEntity<?> updateTableById(@RequestBody TableDTO request, @PathVariable("id") Long id){
+        Optional<TableModel> tableOptional = tableService.getTableById(id);
+        if(tableOptional.isPresent()){
+            TableModel tableToUpdate = tableOptional.get();
+            tableService.saveTable(setTableUpdateValues(request, tableToUpdate));
+            return ResponseEntity.ok("Mesa con id " + id + " actualizado exitosamente.");
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping(path="/delete/{id}")
@@ -86,6 +94,7 @@ public class TableController {
                 .tableNumber(tableDTO.getTableNumber())
                 .capacity(tableDTO.getCapacity())
                 .status(tableDTO.getStatus())
+                .restaurant(tableDTO.getRestaurant())
                 .reservationList(tableDTO.getReservationList())
                 .build();
     }
@@ -96,7 +105,16 @@ public class TableController {
                 .tableNumber(table.getTableNumber())
                 .capacity(table.getCapacity())
                 .status(table.getStatus())
+                .restaurant(table.getRestaurant())
                 .reservationList(table.getReservationList())
                 .build();
+    }
+
+    public TableModel setTableUpdateValues(TableDTO tableDTO, TableModel tableToUpdate){
+        tableToUpdate.setTableNumber(tableDTO.getTableNumber());
+        tableToUpdate.setCapacity(tableDTO.getCapacity());
+        tableToUpdate.setStatus(tableDTO.getStatus());
+        tableToUpdate.setRestaurant(tableDTO.getRestaurant());
+        return tableToUpdate;
     }
 }

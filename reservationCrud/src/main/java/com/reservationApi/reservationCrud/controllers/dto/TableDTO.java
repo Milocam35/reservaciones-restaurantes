@@ -30,6 +30,4 @@ public class TableDTO {
 
     private List<ReservationModel> reservationList = new ArrayList<>();
 
-
-
 }

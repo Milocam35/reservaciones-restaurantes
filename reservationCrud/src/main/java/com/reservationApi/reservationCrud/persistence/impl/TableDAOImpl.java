@@ -26,12 +26,12 @@ public class TableDAOImpl implements ITableDAO {
 
     @Override
     public Optional<TableModel> getTableById(Long id) {
-        return tableRepository.findById(id);
+        return tableRepository.findTableByIdNative(id);
     }
 
     @Override
     public Optional<TableModel> getTableByReservation(Long id) {
-        return tableRepository.findTableByReservation_ReservationId(id);
+        return tableRepository.findTableByReservationList_ReservationId(id);
     }
 
     @Override

@@ -30,7 +30,7 @@ public class RestaurantDAOImpl implements IRestaurantDAO {
 
     @Override
     public Optional<RestaurantModel> getRestaurantByReservation(Long id) {
-        return restaurantRepository.findRestaurantByReservation_ReservationId(id);
+        return restaurantRepository.findByReservationList_ReservationId(id);
     }
 
     @Override

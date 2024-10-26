@@ -1,7 +1,6 @@
 package com.reservationApi.reservationCrud.controllers.dto;
 
-import com.reservationApi.reservationCrud.models.Status;
-import com.reservationApi.reservationCrud.models.UserModel;
+import com.reservationApi.reservationCrud.models.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,4 +23,8 @@ public class ReservationDTO {
     private Status status;
 
     private UserModel user;
+
+    private TableModel table;
+
+    private RestaurantModel restaurant;
 }

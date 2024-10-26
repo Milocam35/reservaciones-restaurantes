@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Builder
 
-@Table(name="Table")
+@Table(name="`Table`")
 public class TableModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +41,5 @@ public class TableModel {
     @OneToMany(mappedBy = "table", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnore
     private List<ReservationModel> reservationList = new ArrayList<>();
-
 
 }

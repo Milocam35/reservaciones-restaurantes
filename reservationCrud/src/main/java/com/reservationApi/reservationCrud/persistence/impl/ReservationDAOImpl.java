@@ -24,7 +24,7 @@ public class ReservationDAOImpl implements IReservationDAO {
 
     @Override
     public Optional<ReservationModel> getReservationById(Long id) {
-        return reservationRepository.findById(id);
+        return reservationRepository.findReservationByIdNative(id);
     }
 
 

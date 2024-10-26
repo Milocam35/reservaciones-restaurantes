@@ -17,6 +17,7 @@ import java.util.List;
 @Entity
 @Builder
 
+@Table(name="Restaurant")
 public class RestaurantModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
