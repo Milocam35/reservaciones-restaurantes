@@ -1,9 +1,7 @@
 package com.reservationApi.reservationCrud.controllers;
 
 import com.reservationApi.reservationCrud.controllers.dto.ReservationDTO;
-import com.reservationApi.reservationCrud.controllers.dto.UserDTO;
 import com.reservationApi.reservationCrud.models.ReservationModel;
-import com.reservationApi.reservationCrud.models.UserModel;
 import com.reservationApi.reservationCrud.repositories.IReservationRepository;
 import com.reservationApi.reservationCrud.services.IReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +17,10 @@ import java.util.Optional;
 @RequestMapping("api/reservation")
 public class ReservationController {
     private final IReservationService reservationService;
-    private final IReservationRepository reservationRepository;
 
     @Autowired
     public ReservationController(IReservationService reservationService, IReservationRepository reservationRepository){
         this.reservationService = reservationService;
-        this.reservationRepository = reservationRepository;
     }
 
     @GetMapping

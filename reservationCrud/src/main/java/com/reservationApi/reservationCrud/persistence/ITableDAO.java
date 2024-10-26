@@ -1,6 +1,5 @@
 package com.reservationApi.reservationCrud.persistence;
 
-import com.reservationApi.reservationCrud.models.ReservationModel;
 import com.reservationApi.reservationCrud.models.TableModel;
 
 import java.util.List;

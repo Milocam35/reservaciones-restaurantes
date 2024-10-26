@@ -1,6 +1,5 @@
 package com.reservationApi.reservationCrud.services.impl;
 
-import com.reservationApi.reservationCrud.models.ReservationModel;
 import com.reservationApi.reservationCrud.models.TableModel;
 import com.reservationApi.reservationCrud.persistence.ITableDAO;
 import com.reservationApi.reservationCrud.services.ITableService;

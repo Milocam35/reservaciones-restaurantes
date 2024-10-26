@@ -1,7 +1,5 @@
 package com.reservationApi.reservationCrud.repositories;
 
-
-import com.reservationApi.reservationCrud.models.ReservationModel;
 import com.reservationApi.reservationCrud.models.TableModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
