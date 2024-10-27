@@ -1,7 +1,9 @@
 package com.reservationApi.reservationCrud.services.impl;
 
+import com.reservationApi.reservationCrud.controllers.dto.LoginDTO;
 import com.reservationApi.reservationCrud.models.UserModel;
 import com.reservationApi.reservationCrud.persistence.IUserDAO;
+import com.reservationApi.reservationCrud.responses.LoginMessage;
 import com.reservationApi.reservationCrud.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +45,29 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Optional<UserModel> getUserByEmail(String email) {
         return userDAO.getUserByEmail(email);
+    }
+
+    @Override
+    public LoginMessage loginUser(LoginDTO loginDTO) {
+        String msg = "";
+        Optional<UserModel> data_user = userDAO.getUserByEmail(loginDTO.getEmail());
+        if (data_user.isPresent()) {
+            String password = loginDTO.getPassword();
+            String encodedPassword = data_user.get().getPassword();
+            Boolean isPwdRight = password.equals(encodedPassword);
+            if (isPwdRight) {
+                Optional<UserModel> user = userDAO.getUserByEmailAndPassword(loginDTO.getEmail(), encodedPassword);
+                if (user.isPresent()) {
+                    return new LoginMessage("Login Success", true);
+                } else {
+                    return new LoginMessage("Login Failed", false);
+                }
+            } else {
+                return new LoginMessage("password Not Match", false);
+            }
+        }else {
+            return new LoginMessage("Email not exits", false);
+        }
     }
 
     @Override

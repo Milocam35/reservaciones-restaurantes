@@ -1,7 +1,9 @@
 package com.reservationApi.reservationCrud.controllers;
 
+import com.reservationApi.reservationCrud.controllers.dto.LoginDTO;
 import com.reservationApi.reservationCrud.controllers.dto.UserDTO;
 import com.reservationApi.reservationCrud.models.UserModel;
+import com.reservationApi.reservationCrud.responses.LoginMessage;
 import com.reservationApi.reservationCrud.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +45,17 @@ public class UserController {
     }
 
     /**
+     * Esta funcion recibe una peticion HTTP GET y busca el respectivo usuario por el id
+     * Importante recalcar que se utiliza un DTO (Data transfer object) para no tener que retornar una entidad
+     * ya que eso es una mala practica.
+     */
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<?> getUserById(@PathVariable Long id){
+        Optional<UserModel> userOptional = userService.getUserById(id);
+        return createUserResponseEntity(userOptional);
+    }
+
+    /**
      * @RequestBody: Esta anotación le dice a Spring que los datos del cuerpo de la solicitud
      * (en formato JSON o XML) se deben convertir automáticamente a un objeto Java del tipo UserModel.
      */
@@ -56,21 +69,13 @@ public class UserController {
         return ResponseEntity.created(new URI("api/user/save")).build();
     }
 
-    /**
-     * Esta funcion recibe una peticion HTTP GET y busca el respectivo usuario por el id
-     * Importante recalcar que se utiliza un DTO (Data transfer object) para no tener que retornar una entidad
-     * ya que eso es una mala practica.
-     */
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable Long id){
-        Optional<UserModel> userOptional = userService.getUserById(id);
-        return createUserResponseEntity(userOptional);
-    }
-
-    @GetMapping(path="/email/{email}")
-    public ResponseEntity<?> getUserByEmail(@PathVariable String email){
-        Optional<UserModel> userOptional = userService.getUserByEmail(email);
-        return createUserResponseEntity(userOptional);
+    @PostMapping(path="/login")
+    public ResponseEntity<?> loginUser(@RequestBody LoginDTO loginDTO){
+        if(loginDTO.getEmail().isBlank() || loginDTO.getPassword().isBlank()){
+            return ResponseEntity.badRequest().build();
+        }
+        LoginMessage loginResponse = userService.loginUser(loginDTO);
+        return ResponseEntity.ok(loginResponse);
     }
 
     @PutMapping(path = "/update/{id}")

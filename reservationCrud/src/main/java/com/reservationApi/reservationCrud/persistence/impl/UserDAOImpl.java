@@ -35,6 +35,11 @@ public class UserDAOImpl implements IUserDAO {
     }
 
     @Override
+    public Optional<UserModel> getUserByEmailAndPassword(String email, String password) {
+        return userRepository.findByEmailAndPassword(email, password);
+    }
+
+    @Override
     public void saveUser(UserModel user) {
         userRepository.save(user);
     }
