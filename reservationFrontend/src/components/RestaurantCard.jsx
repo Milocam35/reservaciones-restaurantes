@@ -1,6 +1,7 @@
-const RestaurantCard = ({imageSrc, name, address, phone, openingHour, closingHour}) => {
+const RestaurantCard = ({imageSrc, name, address, phone, openingHour, closingHour, onClick}) => {
     return (
-        <div className="flex flex-col bg-white shadow-md rounded overflow-hidden">
+
+        <div className="flex flex-col bg-white shadow-md rounded overflow-hidden cursor-pointer" onClick={onClick}>
             <img
                 src={imageSrc}
                 alt="Restaurant Image"
