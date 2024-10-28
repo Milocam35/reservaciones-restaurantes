@@ -55,6 +55,12 @@ public class UserController {
         return createUserResponseEntity(userOptional);
     }
 
+    @GetMapping(path = "/email/{email}")
+    public ResponseEntity<?> getUserByEmail(@PathVariable String email){
+        Optional<UserModel> userOptional = userService.getUserByEmail(email);
+        return createUserResponseEntity(userOptional);
+    }
+
     /**
      * @RequestBody: Esta anotación le dice a Spring que los datos del cuerpo de la solicitud
      * (en formato JSON o XML) se deben convertir automáticamente a un objeto Java del tipo UserModel.
