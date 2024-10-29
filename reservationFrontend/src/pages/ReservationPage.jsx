@@ -4,7 +4,7 @@ import { useUserContext } from '../store/UserProvider';
 
 const ReservationPage = () => {
 
-    const { restaurant} = useUserContext();
+    const {restaurant} = useUserContext();
 
     return(
         <div>

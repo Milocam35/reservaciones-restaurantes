@@ -37,7 +37,7 @@ const LoginForm  = () => {
           console.log(userResponse.data)
 
           // Redirige al usuario a la página de destino
-          navigate('/RestaurantsPage');
+          navigate('/Restaurants');
         } else {
           alert("Incorrect Email and Password not match");
         }

@@ -1,14 +1,16 @@
 import { useState } from 'react';
-import axios from 'axios'; // Asegúrate de importar axios
+import axios from 'axios';
 import DateForm from "../components/DateForm";
 import TableForm from "../components/TableForm";
 import HourForm from "../components/HourForm";
 import { format, parse } from 'date-fns';
 import { useUserContext } from '../store/UserProvider';
 import SubmitButton from '../components/auth/SubmitButton';
+import { useNavigate } from 'react-router-dom';
 
 const ReservationForm = () => {
-    const { user, restaurant } = useUserContext();
+    const { user , setUser, restaurant } = useUserContext();
+    const navigate = useNavigate();
 
     const startHour = restaurant ? parse(restaurant.openingHour, 'HH:mm:ss', new Date()) : new Date();
     
@@ -19,19 +21,27 @@ const ReservationForm = () => {
     async function save(event) {
         event.preventDefault();
         try {
-          await axios.post("http://localhost:4000/api/reservation/save", {
-              reservationDate: format(selectedDay, 'yyyy-MM-dd'),
-              reservationHour: format(selectedHour, 'HH:mm:ss'),
-              status: "confirmed",
-              user: { userId: user.userId },
-              table: { tableId: selectedTable?.tableId },
-              restaurant: { restaurantId: restaurant.restaurantId }
-          });
-          alert("Reservation Created Successfully");
+            const response = await axios.post("http://localhost:4000/api/reservation/save", {
+                reservationDate: format(selectedDay, 'yyyy-MM-dd'),
+                reservationHour: format(selectedHour, 'HH:mm:ss'),
+                status: "confirmed",
+                user: { userId: user.userId },
+                table: { tableId: selectedTable?.tableId },
+                restaurant: { restaurantId: restaurant.restaurantId }
+            });
+            
+            setUser({
+                ...user,
+                reservationList: [...(user.reservationList || []), response.data]
+            });
+            
+            alert("Reservation Created Successfully");
+            navigate('/Restaurants/User');
         } catch (err) {
-          alert("Error creating reservation, please try again.");
+            alert("Error creating reservation, please try again.");
         }
     }
+    
 
     return (
         <div>

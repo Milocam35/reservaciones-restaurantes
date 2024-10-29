@@ -11,7 +11,7 @@ const RestaurantGrid = () => {
 
     const selectRestaurant = (selectedRestaurant) => {
         setRestaurant(selectedRestaurant);
-        navigate('/restaurantsPage/reservationPage'); // Redirige después de establecer el restaurante
+        navigate('/Restaurants/Reservations');
     };
 
     useEffect(() => {
